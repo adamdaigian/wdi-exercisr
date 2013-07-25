@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:zurb/foundation.git
+  revision: 842a9c911a4a011fcb1f585296b55dac40d550ed
+  specs:
+    zurb-foundation (4.3.1)
+      sass (>= 3.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -141,3 +148,4 @@ DEPENDENCIES
   sorcery
   uglifier (>= 1.0.3)
   unicorn
+  zurb-foundation!

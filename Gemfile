@@ -7,6 +7,7 @@ gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'dotenv-rails'
+gem "zurb-foundation", :git => "git@github.com:zurb/foundation.git"
 
 
 # Gems used only for assets and not required
