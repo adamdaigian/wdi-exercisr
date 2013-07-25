@@ -1,82 +1,88 @@
 class ExercisesController < ApplicationController
-  # GET /users
-    # GET /users.json
-    def index
-      @exercises = @user.exercises
+  def index
+    @exercises = current_user.exercises
 
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @exercises }
-      end
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @exercises }
     end
+  end
 
-    # GET /exercises/1
-    # GET /exercises/1.json
-    def show
-      @exercise = @user.exercise.find(params[:id])
+  # GET /exercises/1
+  # GET /exercises/1.json
+  def show
+    @exercise = Exercise.find(params[:id])
 
-      respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @exercise }
-      end
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @exercise }
     end
+  end
 
-    # GET /users/new
-    # GET /users/new.json
-    def new
-      @exercise = @user.exercise.new
+  # GET /exercises/new
+  # GET /exercises/new.json
+  def new
+    @exercise = Exercise.new
 
-      respond_to do |format|
-        format.html # new.html.erb
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js
+    end
+  end
+
+  # GET /exercises/1/edit
+  def edit
+    @exercise = Exercise.find(params[:id])
+  end
+
+  # POST /exercises
+  # POST /exercises.json
+  def create
+    @exercise = Exercise.new(params[:exercise])
+
+    respond_to do |format|
+      if @exercise.save
+        @exercises = current_user.exercises
+        format.html { redirect_to @exercise, notice: 'Exercise was successfully created.' }
+        format.js
+      else
+        format.html { render action: "new" }
         format.js
       end
     end
+  end
 
-    # GET /users/1/edit
-    def edit
-      @exercise = Exercise.find(params[:id])
-    end
+  # PUT /exercises/1
+  # PUT /exercises/1.json
+  def update
+    @exercise = Exercise.find(params[:id])
 
-    # POST /users
-    # POST /users.json
-    def create
-      @exercise = Exercise.new(params[:exercise])
-
-      respond_to do |format|
-        if @exercise.save
-          format.html { redirect_to(:exercises, :notice => 'Exercise was successfully created.') }
-          format.js
-        else
-          format.html { render action: "new" }
-          format.js
-      end
-    end
-
-    # PUT /users/1
-    # PUT /users/1.json
-    def update
-      @exercise = Exercise.find(params[:id])
-
-      respond_to do |format|
-        if @exercise.update_attributes(params[:exercise])
-          format.html { redirect_to @exercise, notice: 'User was successfully updated.' }
-          format.json { head :no_content }
-        else
-          format.html { render action: "edit" }
-          format.json { render json: @exercise.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-
-    # DELETE /users/1
-    # DELETE /users/1.json
-    def destroy
-      @exercise = Exercise.find(params[:id])
-      @exercise.destroy
-
-      respond_to do |format|
-        format.html { redirect_to exercises_url }
+    respond_to do |format|
+      if @exercise.update_attributes(params[:exercise])
+        format.html { redirect_to @exercise, notice: 'Exercise was successfully updated.' }
         format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @exercise.errors, status: :unprocessable_entity }
       end
     end
   end
+
+  # DELETE /exercises/1
+  # DELETE /exercises/1.json
+  def destroy
+    @exercise = Exercise.find(params[:id])
+    @exercise.destroy
+
+    respond_to do |format|
+      format.html { redirect_to exercises_url }
+      format.json { head :no_content }
+    end
+  end
+
+  def chart
+    @exercises = current_user.exercises
+    activity = params[:activity]
+    render :json => current_user.exercises.where(:activity => activity)
+  end
+end

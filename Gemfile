@@ -34,6 +34,10 @@ gem 'jquery-rails'
 
 # Use unicorn as the app server
 gem 'unicorn'
+gem 'binding_of_caller'
+gem 'pry-debugger'
+gem 'better_errors'
+gem 'annotate'
 
 # Deploy with Capistrano
 # gem 'capistrano'

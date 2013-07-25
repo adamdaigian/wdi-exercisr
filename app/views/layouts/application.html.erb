@@ -35,6 +35,7 @@
        <!-- Right Nav Section -->
        <ul class="right">
           <% if current_user %>
+            <li><%= link_to "Exercises", exercises_path %></li>
             <li><%= link_to "Edit Profile", edit_user_path(current_user.id) %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", :logout %></li>
@@ -42,12 +43,16 @@
             <li><%= link_to "Register", new_user_path, :remote => true, :data => {"reveal-id" => "signup_window"} %></li>
             <li class="divider"></li>
             <li><%= link_to "Login", :login %></li>
-            <% end %>
-           </ul>
+          <% end %>
+            <li class="divider"></li>
+            <li><%= link_to "New Exercise", new_exercise_path, :remote => true, :data => {"reveal-id" => "exercise_window"} %></li>
+
+        </ul>
      </section>
   </nav>
 
   <div id="signup_window" class="reveal-modal"></div>
+  <div id="exercise_window" class="reveal-modal"></div>
 
   <body>
 
